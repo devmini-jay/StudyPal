@@ -89,4 +89,4 @@ Since this is a React Native prototype:
         ![expo go app preview](images/expo_go.png)
 
     5. Run the app using Android emulator, iOS simulator or the Expo Go application
-        Scan qr code through the exo go app.
+        Scan qr code through the Expo Go.
