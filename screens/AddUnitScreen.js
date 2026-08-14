@@ -14,7 +14,7 @@ export default function AddUnitScreen({ navigation, setUnits, darkMode, }) {
 
       <Text style={[styles.label,darkMode && styles.darkText,]}>Unit Name</Text>
       <TextInput
-        style={[styles.input,darkMode && styles.darkInput]}
+        style={[styles.input,darkMode && styles.darkInput]} 
         placeholder="Enter unit name"
         value={unitName}
         onChangeText={setUnitName}
