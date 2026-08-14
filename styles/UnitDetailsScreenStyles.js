@@ -120,6 +120,23 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     fontSize: 16,
   },
+  
+  darkContainer: {
+  backgroundColor: '#18181B',
+},
+
+darkCard: {
+  backgroundColor: '#27272A',
+},
+
+darkText: {
+  color: '#FFFFFF',
+},
+
+darkSecondaryText: {
+  color: '#AAAAAA',
+},
+
 });
 
 export default styles;

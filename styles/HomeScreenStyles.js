@@ -8,7 +8,7 @@ const styles = StyleSheet.create({
   },
 
   header: {
-    paddingTop: 25,
+    paddingTop: 50,
     paddingBottom: 20,
   },
 
@@ -98,6 +98,42 @@ const styles = StyleSheet.create({
     fontSize: 17,
     fontWeight: 'bold',
   },
+  headerTop: {
+  flexDirection: 'row',
+  alignItems: 'center',
+  justifyContent: 'space-between',
+},
+
+settingsIcon: {
+  width: 42,
+  height: 42,
+  borderRadius: 21,
+  backgroundColor: '#E8E8F8',
+  alignItems: 'center',
+  justifyContent: 'center',
+},
+
+settingsIconText: {
+  fontSize: 22,
+  color: '#4F46E5',
+},
+
+darkContainer: {
+  backgroundColor: '#18181B',
+},
+
+darkText: {
+  color: '#FFFFFF',
+},
+
+darkCard: {
+  backgroundColor: '#27272A',
+},
+
+darkSecondaryText: {
+  color: '#AAAAAA',
+},
+
 });
 
 export default styles;

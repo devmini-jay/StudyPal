@@ -44,6 +44,22 @@ const styles = StyleSheet.create({
     fontSize: 17,
     fontWeight: 'bold',
   },
+  
+  darkContainer: {
+  backgroundColor: '#18181B',
+},
+
+darkText: {
+  color: '#FFFFFF',
+},
+
+darkInput: {
+  backgroundColor: '#27272A',
+  borderColor: '#444444',
+  color: '#FFFFFF',
+},
+
+
 });
 
 export default styles;

@@ -9,11 +9,7 @@ import {
 
 import styles from '../styles/UnitDetailsScreenStyles';
 
-export default function UnitDetailsScreen({
-  route,
-  units,
-  setUnits,
-}) {
+export default function UnitDetailsScreen({route, units, setUnits, darkMode,}) {
   const selectedUnit = units.find(
     item => item.id === route.params.unit.id
   );
@@ -141,25 +137,25 @@ export default function UnitDetailsScreen({
   };
 
   return (
-    <View style={styles.container}>
+    <View style={[styles.container,darkMode && styles.darkContainer,]}>
 
-      <Text style={styles.unitName}>
+      <Text style={[styles.unitName,darkMode && styles.darkText,]}>
         {selectedUnit?.name}
       </Text>
 
-      <Text style={styles.progress}>
+      <Text style={[styles.progress,darkMode && styles.darkText,]}>
         {calculateProgress()}% completed
       </Text>
 
-      <Text style={styles.taskCount}>
+      <Text style={[styles.taskCount,darkMode && styles.darkSecondaryText]}>
         {calculateCompleted()} / {calculateTotal()} tasks completed
       </Text>
 
-      <Text style={styles.deadline}>
+      <Text style={[styles.deadline,darkMode && styles.darkSecondaryText]}>
         Target date: {selectedUnit?.deadline}
       </Text>
 
-      <Text style={styles.sectionTitle}>
+      <Text style={[styles.sectionTitle,darkMode && styles.darkText,]}>
         Major Tasks
       </Text>
 
@@ -167,9 +163,9 @@ export default function UnitDetailsScreen({
         data={tasks}
         keyExtractor={item => item.id}
         renderItem={({ item }) => (
-          <View style={styles.taskCard}>
+          <View style={[styles.taskCard,darkMode && styles.darkCard,]}>
 
-            <Text style={styles.taskTitle}>
+            <Text style={[styles.taskTitle,darkMode && styles.darkText,]}>
               {item.title}
             </Text>
 
@@ -193,7 +189,7 @@ export default function UnitDetailsScreen({
 
                 <Text
                   style={[
-                    styles.subtaskText,
+                    styles.subtaskText,darkMode && styles.darkText,
                     subtask.completed &&
                       styles.completedSubtask,
                   ]}

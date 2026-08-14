@@ -2,7 +2,7 @@ import React from 'react';
 import { View, Text, FlatList, TouchableOpacity, } from 'react-native';
 import styles from '../styles/HomeScreenStyles';
 
-export default function HomeScreen({ navigation, units}) {
+export default function HomeScreen({ navigation, units, darkMode,}) {
 
   const today = new Date();
 
@@ -44,40 +44,51 @@ const calculateProgress = unit => {
 
 
   return (
-    <View style={styles.container}>
+    <View style={[styles.container,darkMode && styles.darkContainer,]}>
 
       <View style={styles.header}>
-        <Text style={styles.title}>StudyPal</Text>
-        <Text style={styles.date}>{formattedDate}</Text>
-      </View>
+        <View style={styles.headerTop}>
+          <Text style={[styles.title,darkMode && styles.darkText,]}>StudyPal</Text>
+          <TouchableOpacity style={styles.settingsIcon} onPress={() => navigation.navigate('Settings')}>
+            <Text style={[styles.settingsIconText, darkMode && styles.darkText,]}>⚙</Text>
+          </TouchableOpacity>
+        </View>
 
-      <Text style={styles.sectionTitle}>My Units</Text>
+  <Text style={[styles.date,darkMode && styles.darkText,]}>
+    {formattedDate}
+  </Text>
+
+</View>
+
+      <Text style={[styles.sectionTitle,darkMode && styles.darkText,]}>My Units</Text>
       <FlatList 
       data={units} 
       keyExtractor={(item) => item.id} 
       renderItem={({ item }) => (
-            <TouchableOpacity style={styles.unitCard} 
+            <TouchableOpacity style={[styles.unitCard,darkMode && styles.darkCard,]} 
               onPress={() =>
                 navigation.navigate('UnitDetails', {
                   unit: item,
                 })
               }
             >
-                <Text style={styles.unitName}>{item.name}</Text>
-                <Text style={styles.unitProgress}>{calculateProgress(item)}% completed</Text>
-                <Text style={styles.taskCount}>{calculateCompleted(item)} / {calculateTotal(item)} tasks completed</Text>
+                <Text style={[styles.unitName,darkMode && styles.darkText,]}>{item.name}</Text>
+                <Text style={[styles.unitProgress,darkMode && styles.darkText,]}>{calculateProgress(item)}% completed</Text>
+                <Text style={[styles.taskCount,darkMode && styles.darkSecondaryText,]}>{calculateCompleted(item)} / {calculateTotal(item)} tasks completed</Text>
                 <View style={styles.progressBar}>
                     <View style={[ styles.progressFill,{ width: `${calculateProgress(item)}%` },]}/>
                 </View>
-                <Text style={styles.unitDeadline}>Target date: {item.deadline}</Text>
+                <Text style={[styles.unitDeadline,darkMode && styles.darkSecondaryText,]}>Target date: {item.deadline}</Text>
             
             </TouchableOpacity>
         )}
         contentContainerStyle={styles.listContent}
       />
 
+    
+
       <TouchableOpacity style={styles.addUnitButton} onPress={() => navigation.navigate('AddUnit')}>
-        <Text style={styles.addUnitButtonText}>+ Add Unit</Text>
+        <Text style={[styles.addUnitButtonText,darkMode && styles.darkText,]}>+ Add Unit</Text>
       </TouchableOpacity>
 
       
