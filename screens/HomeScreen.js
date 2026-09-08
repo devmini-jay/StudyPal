@@ -2,7 +2,7 @@ import React from 'react';
 import { View, Text, FlatList, TouchableOpacity, } from 'react-native';
 import styles from '../styles/HomeScreenStyles';
 
-export default function HomeScreen({ navigation, units, darkMode,}) {
+export default function HomeScreen({ navigation, units, darkMode, loading, error}) {
 
   const today = new Date();
 
@@ -12,15 +12,19 @@ const formattedDate = today.toLocaleDateString('en-US', {
   weekday: 'long',
 });
 
-  const calculateTotal = unit => {
-  return unit.tasks.reduce(
+const calculateTotal = unit => {
+  const tasks = unit.tasks || []; //if unit has tasks use them, other wise use an epty array
+
+  return tasks.reduce(
     (total, task) => total + task.subtasks.length,
     0
   );
 };
 
 const calculateCompleted = unit => {
-  return unit.tasks.reduce(
+  const tasks = unit.tasks || [];
+
+  return tasks.reduce(
     (total, task) =>
       total +
       task.subtasks.filter(
@@ -42,6 +46,30 @@ const calculateProgress = unit => {
   );
 };
 
+//loading and error handling
+if (loading) {
+  return (
+    <View style={styles.container}>
+      <Text>Loading units...</Text>
+    </View>
+  );
+}
+
+if (error) {
+  return (
+    <View style={styles.container}>
+      <Text>{error}</Text>
+    </View>
+  );
+}
+
+if (units.length === 0) {
+  return (
+    <View style={styles.container}>
+      <Text>No units available.</Text>
+    </View>
+  );
+}
 
   return (
     <View style={[styles.container,darkMode && styles.darkContainer,]}>
