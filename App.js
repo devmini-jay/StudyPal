@@ -89,6 +89,7 @@ export default function App() {
               units={units}
               setUnits={setUnits}
               darkMode={darkMode}
+              API_URL={API_URL}
             />
           )}
         />

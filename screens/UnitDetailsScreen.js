@@ -9,7 +9,7 @@ import {
 
 import styles from '../styles/UnitDetailsScreenStyles';
 
-export default function UnitDetailsScreen({route, units, setUnits, darkMode,}) {
+export default function UnitDetailsScreen({route, units, setUnits, darkMode, navigation, API_URL}) {
   const selectedUnit = units.find(
     item => item.id === route.params.unit.id
   );
@@ -135,6 +135,32 @@ export default function UnitDetailsScreen({route, units, setUnits, darkMode,}) {
 
     updateUnitTasks(updatedTasks);
   };
+
+  //DELETE function
+  const deleteUnit = () => {
+
+    //to GET only one unit to delete:
+    fetch(`${API_URL}/${selectedUnit.id}`, {
+    method: 'DELETE',
+  })
+    .then(response => {
+      if (!response.ok) {
+        throw new Error('Failed to delete unit');
+      }
+
+      setUnits(currentUnits =>
+        //after mockAPI deletes, remove it from Reach state, so React can re-render Home
+        currentUnits.filter(
+          unit => unit.id !== selectedUnit.id
+        )
+      );
+
+      navigation.navigate('Home');
+    })
+    .catch(error => {
+      console.log(error);
+    });
+};
 
   return (
     <View style={[styles.container,darkMode && styles.darkContainer,]}>
@@ -278,6 +304,13 @@ export default function UnitDetailsScreen({route, units, setUnits, darkMode,}) {
         </TouchableOpacity>
 
       )}
+
+      <TouchableOpacity style={styles.addButton}
+        onPress={deleteUnit}
+      >
+        <Text>Delete Unit</Text>
+      </TouchableOpacity>
+      
 
     </View>
   );
