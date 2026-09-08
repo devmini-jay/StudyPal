@@ -112,6 +112,7 @@ export default function App() {
               setUnits={setUnits}
               darkMode={darkMode}
               API_URL={API_URL}
+              saveUnitsLocally={saveUnitsLocally}
             />
           )}
         />
@@ -128,6 +129,7 @@ export default function App() {
               setUnits={setUnits}
               darkMode={darkMode}
               API_URL={API_URL}
+              saveUnitsLocally={saveUnitsLocally}
             />
           )}
         />

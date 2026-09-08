@@ -9,7 +9,7 @@ import {
 
 import styles from '../styles/UnitDetailsScreenStyles';
 
-export default function UnitDetailsScreen({route, units, setUnits, darkMode, navigation, API_URL}) {
+export default function UnitDetailsScreen({route, units, setUnits, darkMode, navigation, API_URL, saveUnitsLocally,}) {
   const selectedUnit = units.find(
     item => item.id === route.params.unit.id
   );
@@ -158,19 +158,24 @@ export default function UnitDetailsScreen({route, units, setUnits, darkMode, nav
         throw new Error('Failed to delete unit');
       }
 
-      setUnits(currentUnits =>
-        //after mockAPI deletes, remove it from Reach state, so React can re-render Home
-        currentUnits.filter(
-          unit => unit.id !== selectedUnit.id
-        )
-      );
+      setUnits(currentUnits => {
 
-      navigation.navigate('Home');
-    })
-    .catch(error => {
-      console.log(error);
-    });
-};
+        //after mockAPI deletes, remove it from Reach state, so React can re-render Home
+        const updatedUnits = currentUnits.filter(
+          unit => unit.id !== selectedUnit.id
+        );
+
+        saveUnitsLocally(updatedUnits);
+
+        return updatedUnits;
+      });
+
+            navigation.navigate('Home');
+          })
+          .catch(error => {
+            console.log(error);
+          });
+      };
 
   //PUT function
   const updateUnit = () => {
@@ -196,15 +201,21 @@ export default function UnitDetailsScreen({route, units, setUnits, darkMode, nav
       })
       .then(updatedData => {
 
-        setUnits(currentUnits =>
-          currentUnits.map(unit =>
-            unit.id === selectedUnit.id? {
+        setUnits(currentUnits => {
+
+          const updatedUnits = currentUnits.map(unit =>
+            unit.id === selectedUnit.id
+              ? {
                   ...unit,
                   ...updatedData,
                 }
               : unit
-            ) //map() finds the matching unti and replaces its properties with the values returned by mockAPI
-          );
+          ); ////map() finds the matching unti and replaces its properties with the values returned by mockAPI
+
+          saveUnitsLocally(updatedUnits);
+
+          return updatedUnits;
+        });
 
           setEditingUnit(false);
         })

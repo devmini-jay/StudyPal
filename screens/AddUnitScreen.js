@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { View, Text, TextInput, TouchableOpacity } from 'react-native';
 import styles from '../styles/AddUnitStyles';
 
-export default function AddUnitScreen({ navigation, setUnits, darkMode, API_URL}) {
+export default function AddUnitScreen({ navigation, setUnits, darkMode, API_URL, saveUnitsLocally}) {
   const [unitName, setUnitName] = useState('');
   const [deadline, setDeadline] = useState('');
 
@@ -49,14 +49,21 @@ export default function AddUnitScreen({ navigation, setUnits, darkMode, API_URL}
           })
           .then(response => response.json())
           .then(createdUnit => {
-            //stores returned object in state
-            setUnits(currentUnits => [
-              ...currentUnits,
-              createdUnit,
-            ]);
 
-          navigation.navigate('Home');
+            setUnits(currentUnits => {
+              const updatedUnits = [
+                ...currentUnits,
+                createdUnit,
+              ];
+
+              saveUnitsLocally(updatedUnits);
+
+              return updatedUnits;
+            });
+
+            navigation.navigate('Home');
           })
+          
           .catch(error => {
             console.log(error);
         });
