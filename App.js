@@ -1,6 +1,7 @@
 import React, { useState, useEffect, use } from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 //navigations
 import HomeScreen from './screens/HomeScreen';
@@ -20,6 +21,18 @@ export default function App() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
+  //function to save units
+  const saveUnitsLocally = async (unitData) => {
+    try {
+      await AsyncStorage.setItem(
+        'units',
+        JSON.stringify(unitData)
+      );
+    } catch (error) {
+      console.log('Failed to save units locally');
+    }
+  };
+
   useEffect(() => {
     //send a GET request to MockAPI
     fetch(API_URL)
@@ -37,6 +50,7 @@ export default function App() {
       //take that data (array of objects) and store in the existing units state.
       .then(data => {
         setUnits(data);
+        saveUnitsLocally(data);
         setLoading(false);
       })
       //if request fails, print error in the console

@@ -248,7 +248,6 @@ export default function UnitDetailsScreen({route, units, setUnits, darkMode, nav
         </Text>
       )}
 
-      {/* ADD EDIT/SAVE BUTTON HERE */}
       {editingUnit ? (
         <TouchableOpacity
           style={styles.saveButton}
