@@ -33,6 +33,24 @@ export default function App() {
     }
   };
 
+  //function to retrive saved units when GET request fails
+  const loadUnitsLocally = async () => {
+    try {
+      const savedUnits = await AsyncStorage.getItem('units');
+
+      if (savedUnits !== null) {
+        setUnits(JSON.parse(savedUnits));
+        return true;
+      }
+
+      return false;
+
+    } catch (error) {
+      console.log('Failed to load units locally');
+      return false;
+    }
+  };
+
   useEffect(() => {
     //send a GET request to MockAPI
     fetch(API_URL)
@@ -53,9 +71,15 @@ export default function App() {
         saveUnitsLocally(data);
         setLoading(false);
       })
-      //if request fails, print error in the console
-      .catch(error => {
-        setError(error.message);
+      //if GET request fails
+      .catch(async error => {
+
+        const hasLocalData = await loadUnitsLocally();
+
+        if (!hasLocalData) {
+          setError(error.message);
+        }
+
         setLoading(false);
       });
 
