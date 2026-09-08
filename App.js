@@ -12,6 +12,9 @@ const Stack = createNativeStackNavigator();
 
 export default function App() {
 
+  //MockAPI endpoint
+  const API_URL = 'https://6aa0561c3e0d88d3d7e592b6.mockapi.io/api/v1/units';
+
   const [darkMode, setDarkMode] = useState(false);
   const [units, setUnits] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -19,7 +22,7 @@ export default function App() {
 
   useEffect(() => {
     //send a GET request to MockAPI
-    fetch('https://6aa0561c3e0d88d3d7e592b6.mockapi.io/api/v1/units')
+    fetch(API_URL)
 
     //response is HTTP response. Then convert JSON response into JavaScript data
       .then(response => {
@@ -70,6 +73,7 @@ export default function App() {
               {...props}
               setUnits={setUnits}
               darkMode={darkMode}
+              API_URL={API_URL}
             />
           )}
         />
