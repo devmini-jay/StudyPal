@@ -22,6 +22,16 @@ export default function UnitDetailsScreen({route, units, setUnits, darkMode, nav
   const [addingTask, setAddingTask] = useState(false);
   const [addingSubtaskFor, setAddingSubtaskFor] = useState(null);
 
+  const [editingUnit, setEditingUnit] = useState(false); //controls whether viewving or editing
+
+  const [editedName, setEditedName] = useState(
+    selectedUnit?.name || ''
+  ); //stores what the user types into the name field
+
+  const [editedDeadline, setEditedDeadline] = useState(
+    selectedUnit?.deadline || ''
+  ); //to store what user types into the deadline field
+
   const calculateTotal = () => {
     return tasks.reduce(
       (total, task) => total + task.subtasks.length,
@@ -162,12 +172,61 @@ export default function UnitDetailsScreen({route, units, setUnits, darkMode, nav
     });
 };
 
+  //PUT function
+  const updateUnit = () => {
+
+    const updatedUnit = {
+      name: editedName,
+      deadline: editedDeadline,
+    };
+
+    fetch(`${API_URL}/${selectedUnit.id}`, {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(updatedUnit), //tells mockAPI what its new value should be
+    })
+      .then(response => {
+        if (!response.ok) {
+          throw new Error('Failed to update unit');
+        }
+
+        return response.json();
+      })
+      .then(updatedData => {
+
+        setUnits(currentUnits =>
+          currentUnits.map(unit =>
+            unit.id === selectedUnit.id? {
+                  ...unit,
+                  ...updatedData,
+                }
+              : unit
+            ) //map() finds the matching unti and replaces its properties with the values returned by mockAPI
+          );
+
+          setEditingUnit(false);
+        })
+        .catch(error => {
+          console.log(error);
+        });
+    };
+
   return (
     <View style={[styles.container,darkMode && styles.darkContainer,]}>
 
-      <Text style={[styles.unitName,darkMode && styles.darkText,]}>
-        {selectedUnit?.name}
-      </Text>
+      {editingUnit ? (
+    <TextInput
+      style={styles.input}
+      value={editedName}
+      onChangeText={setEditedName}
+    />
+  ) : (
+    <Text style={[styles.unitName, darkMode && styles.darkText]}>
+      {selectedUnit?.name}
+    </Text>
+  )}
 
       <Text style={[styles.progress,darkMode && styles.darkText,]}>
         {calculateProgress()}% completed
@@ -177,9 +236,35 @@ export default function UnitDetailsScreen({route, units, setUnits, darkMode, nav
         {calculateCompleted()} / {calculateTotal()} tasks completed
       </Text>
 
-      <Text style={[styles.deadline,darkMode && styles.darkSecondaryText]}>
-        Target date: {selectedUnit?.deadline}
-      </Text>
+      {editingUnit ? (
+        <TextInput
+          style={styles.input}
+          value={editedDeadline}
+          onChangeText={setEditedDeadline}
+        />
+      ) : (
+        <Text style={[styles.deadline, darkMode && styles.darkSecondaryText]}>
+          Target date: {selectedUnit?.deadline}
+        </Text>
+      )}
+
+      {/* ADD EDIT/SAVE BUTTON HERE */}
+      {editingUnit ? (
+        <TouchableOpacity
+          style={styles.saveButton}
+          onPress={updateUnit}
+        >
+          <Text style={styles.buttonText}>
+            Save Changes
+          </Text>
+        </TouchableOpacity>
+      ) : (
+        <TouchableOpacity
+          onPress={() => setEditingUnit(true)}
+        >
+          <Text>Edit Unit</Text>
+        </TouchableOpacity>
+)}
 
       <Text style={[styles.sectionTitle,darkMode && styles.darkText,]}>
         Major Tasks
