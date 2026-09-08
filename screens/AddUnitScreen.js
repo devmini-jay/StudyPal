@@ -4,7 +4,6 @@ import styles from '../styles/AddUnitStyles';
 
 export default function AddUnitScreen({ navigation, setUnits, darkMode, }) {
   const [unitName, setUnitName] = useState('');
-  const [unitCode, setUnitCode] = useState('');
   const [deadline, setDeadline] = useState('');
 
   return (
@@ -47,10 +46,6 @@ export default function AddUnitScreen({ navigation, setUnits, darkMode, }) {
           const newUnit = {
             id: Date.now().toString(),
             name: unitName,
-            code: unitCode,
-            progress: 0,
-            completedTasks: 0,
-            totalTasks: 0,
             deadline: deadline,
             tasks: [],
           };

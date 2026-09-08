@@ -17,9 +17,6 @@ export default function App() {
     {
       id: '1',
       name: 'Mobile App Development',
-      progress: 0,
-      completedTasks: 0,
-      totalTasks: 0,
       deadline: '15 September 2026',
       tasks: [
         {
@@ -56,9 +53,6 @@ export default function App() {
   {
     id: '2',
       name: 'Cloud Computing & DevOps',
-      progress: 0,
-      completedTasks: 0,
-      totalTasks: 0,
       deadline: '15 September 2026',
       tasks: [
         {
@@ -84,9 +78,6 @@ export default function App() {
   {
     id: '3',
       name: 'AI & Machine Learning',
-      progress: 0,
-      completedTasks: 0,
-      totalTasks: 0,
       deadline: '15 September 2026',
       tasks: [
         {
