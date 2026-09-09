@@ -20,6 +20,7 @@ export default function App() {
   const [units, setUnits] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const [offlineMode, setOfflineMode] = useState(false);
 
   //function to save units
   const saveUnitsLocally = async (unitData) => {
@@ -69,6 +70,7 @@ export default function App() {
       .then(data => {
         setUnits(data);
         saveUnitsLocally(data);
+        setOfflineMode(false);
         setLoading(false);
       })
       //if GET request fails
@@ -77,6 +79,8 @@ export default function App() {
         const hasLocalData = await loadUnitsLocally();
 
         if (!hasLocalData) {
+          setOfflineMode(true);
+        } else {
           setError(error.message);
         }
 
@@ -100,6 +104,7 @@ export default function App() {
               darkMode={darkMode}
               loading={loading}
               error={error}
+              offlineMode={offlineMode}
             />
         )}
         />

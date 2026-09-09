@@ -2,7 +2,7 @@ import React from 'react';
 import { View, Text, FlatList, TouchableOpacity, } from 'react-native';
 import styles from '../styles/HomeScreenStyles';
 
-export default function HomeScreen({ navigation, units, darkMode, loading, error}) {
+export default function HomeScreen({ navigation, units, darkMode, loading, error, offlineMode,}) {
 
   const today = new Date();
 
@@ -64,6 +64,12 @@ const calculateProgress = unit => {
 </View>
 
       <Text style={[styles.sectionTitle,darkMode && styles.darkText,]}>My Units</Text>
+
+      {offlineMode && (
+        <Text style={darkMode && styles.darkText}>
+          Offline mode - showing saved data
+        </Text>
+      )}
       
       {loading ? (
 
