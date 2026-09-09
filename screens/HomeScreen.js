@@ -46,31 +46,6 @@ const calculateProgress = unit => {
   );
 };
 
-//loading and error handling
-if (loading) {
-  return (
-    <View style={styles.container}>
-      <Text>Loading units...</Text>
-    </View>
-  );
-}
-
-if (error) {
-  return (
-    <View style={styles.container}>
-      <Text>{error}</Text>
-    </View>
-  );
-}
-
-if (units.length === 0) {
-  return (
-    <View style={styles.container}>
-      <Text>No units available.</Text>
-    </View>
-  );
-}
-
   return (
     <View style={[styles.container,darkMode && styles.darkContainer,]}>
 
@@ -89,6 +64,27 @@ if (units.length === 0) {
 </View>
 
       <Text style={[styles.sectionTitle,darkMode && styles.darkText,]}>My Units</Text>
+      
+      {loading ? (
+
+        <Text style={darkMode && styles.darkText}>
+          Loading units...
+        </Text>
+
+      ) : error ? (
+
+        <Text style={darkMode && styles.darkText}>
+          {error}
+        </Text>
+
+      ) : units.length === 0 ? (
+
+        <Text style={darkMode && styles.darkText}>
+          No units available. Add your first unit.
+        </Text>
+
+      ) : (
+
       <FlatList 
       data={units} 
       keyExtractor={(item) => item.id} 
@@ -112,6 +108,7 @@ if (units.length === 0) {
         )}
         contentContainerStyle={styles.listContent}
       />
+      )}
 
     
 
