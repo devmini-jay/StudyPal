@@ -62,17 +62,45 @@ export default function UnitDetailsScreen({route, units, setUnits, darkMode, nav
     );
   };
 
+  //update unit task function
   const updateUnitTasks = updatedTasks => {
-    setUnits(currentUnits =>
-      currentUnits.map(item =>
-        item.id === selectedUnit.id
-          ? {
-              ...item,
-              tasks: updatedTasks,
-            }
-          : item
-      )
-    );
+
+    const updatedUnit = {
+      ...selectedUnit, //keeps existing unit data
+      tasks: updatedTasks, //replaces only the tasks with the new version
+    };
+
+    fetch(`${API_URL}/${selectedUnit.id}`, {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(updatedUnit),
+    })
+      .then(response => {
+        if (!response.ok) {
+          throw new Error('Failed to update tasks');
+        }
+        return response.json();
+      })
+
+      .then(updatedData => {
+        setUnits(currentUnits => {
+          const updatedUnits = currentUnits.map(item =>
+            item.id === selectedUnit.id
+              ? updatedData
+              : item
+          );
+
+          saveUnitsLocally(updatedUnits);
+
+          return updatedUnits;
+        });
+
+      })
+      .catch(error => {
+        console.log(error);
+      });
   };
 
   const addTask = () => {

@@ -38,6 +38,7 @@ export default function AddUnitScreen({ navigation, setUnits, darkMode, API_URL,
           const newUnit = {
             name: unitName,
             deadline: deadline,
+            tasks: [],
           };
 
           fetch(API_URL, {
@@ -63,7 +64,7 @@ export default function AddUnitScreen({ navigation, setUnits, darkMode, API_URL,
 
             navigation.navigate('Home');
           })
-          
+
           .catch(error => {
             console.log(error);
         });
