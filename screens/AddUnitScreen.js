@@ -5,6 +5,8 @@ import styles from '../styles/AddUnitStyles';
 export default function AddUnitScreen({ navigation, setUnits, darkMode, API_URL, saveUnitsLocally}) {
   const [unitName, setUnitName] = useState('');
   const [deadline, setDeadline] = useState('');
+  const [error, setError] = useState(null);
+  const [saving, setSaving] = useState(false);
 
   return (
     <View style={[styles.container,darkMode && styles.darkContainer,]}>
@@ -29,11 +31,14 @@ export default function AddUnitScreen({ navigation, setUnits, darkMode, API_URL,
 
       <TouchableOpacity
         style={styles.createButton}
+        disabled={saving} //so cant be pressed again while saving
         onPress={() => {
           // Prevent student creating empty unit
           if (unitName.trim() === '') {
             return;
           }
+          setError(null); //before starting POST request, clear any old errors
+          setSaving(true);
 
           const newUnit = {
             name: unitName,
@@ -69,16 +74,25 @@ export default function AddUnitScreen({ navigation, setUnits, darkMode, API_URL,
               return updatedUnits;
             });
 
+            setSaving(false);
             navigation.navigate('Home');
           })
 
           .catch(error => {
-            console.log(error);
-        });
+            setError(error.message);
+            setSaving(false);
+          });
       }}
       >
+
+        {error && (
+          <Text>
+            {error}
+          </Text>
+        )}
+
         <Text style={styles.createButtonText}>
-          Create Unit
+          {saving ? 'Creating Unit...' : 'Create Unit'}
         </Text>
       </TouchableOpacity>
 
