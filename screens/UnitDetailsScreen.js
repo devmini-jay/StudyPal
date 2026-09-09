@@ -32,6 +32,9 @@ export default function UnitDetailsScreen({route, units, setUnits, darkMode, nav
     selectedUnit?.deadline || ''
   ); //to store what user types into the deadline field
 
+  const [actionError, setActionError] = useState(null);
+  const [savingChanges, setSavingChanges] = useState(false);
+
   const calculateTotal = () => {
     return tasks.reduce(
       (total, task) => total + task.subtasks.length,
@@ -70,6 +73,10 @@ export default function UnitDetailsScreen({route, units, setUnits, darkMode, nav
       tasks: updatedTasks, //replaces only the tasks with the new version
     };
 
+    //clear old error and start loading before fetch()
+    setActionError(null);
+    setSavingChanges(true);
+
     fetch(`${API_URL}/${selectedUnit.id}`, {
       method: 'PUT',
       headers: {
@@ -97,9 +104,12 @@ export default function UnitDetailsScreen({route, units, setUnits, darkMode, nav
           return updatedUnits;
         });
 
+        setSavingChanges(false);
+
       })
       .catch(error => {
-        console.log(error);
+        setActionError(error.message);
+        setSavingChanges(false);
       });
   };
 
@@ -177,6 +187,9 @@ export default function UnitDetailsScreen({route, units, setUnits, darkMode, nav
   //DELETE function
   const deleteUnit = () => {
 
+    setActionError(null);
+    setSavingChanges(true);
+
     //to GET only one unit to delete:
     fetch(`${API_URL}/${selectedUnit.id}`, {
     method: 'DELETE',
@@ -198,15 +211,20 @@ export default function UnitDetailsScreen({route, units, setUnits, darkMode, nav
         return updatedUnits;
       });
 
+            setSavingChanges(false);      
             navigation.navigate('Home');
           })
           .catch(error => {
-            console.log(error);
+            setActionError(error.message);
+            setSavingChanges(false);
           });
       };
 
   //PUT function
   const updateUnit = () => {
+
+    setActionError(null);
+    setSavingChanges(true);
 
     const updatedUnit = {
       name: editedName,
@@ -245,10 +263,12 @@ export default function UnitDetailsScreen({route, units, setUnits, darkMode, nav
           return updatedUnits;
         });
 
-          setEditingUnit(false);
+        setSavingChanges(false);  
+        setEditingUnit(false);
         })
         .catch(error => {
-          console.log(error);
+          setActionError(error.message);
+          setSavingChanges(false);
         });
     };
 
@@ -275,6 +295,13 @@ export default function UnitDetailsScreen({route, units, setUnits, darkMode, nav
         {calculateCompleted()} / {calculateTotal()} tasks completed
       </Text>
 
+                    
+      {actionError && (
+        <Text>
+          {actionError}
+        </Text>
+      )} 
+
       {editingUnit ? (
         <TextInput
           style={styles.input}
@@ -290,10 +317,11 @@ export default function UnitDetailsScreen({route, units, setUnits, darkMode, nav
       {editingUnit ? (
         <TouchableOpacity
           style={styles.saveButton}
+          disabled={savingChanges}
           onPress={updateUnit}
         >
           <Text style={styles.buttonText}>
-            Save Changes
+            {savingChanges ? 'Saving...' : 'Save Changes'}
           </Text>
         </TouchableOpacity>
       ) : (
@@ -429,9 +457,12 @@ export default function UnitDetailsScreen({route, units, setUnits, darkMode, nav
       )}
 
       <TouchableOpacity style={styles.addButton}
+        disabled={savingChanges}
         onPress={deleteUnit}
       >
-        <Text>Delete Unit</Text>
+        <Text>
+          {savingChanges ? 'Please wait...' : 'Delete Unit'}
+        </Text>
       </TouchableOpacity>
       
 
