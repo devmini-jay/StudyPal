@@ -29,8 +29,15 @@ export default function AddUnitScreen({ navigation, setUnits, darkMode, API_URL,
         onChangeText={setDeadline}
       />
 
+      {error && (
+        <Text style={styles.errorText}>
+          {error}
+        </Text>
+      )}
+
+  
       <TouchableOpacity
-        style={styles.createButton}
+        style={[ styles.createButton, saving && styles.disabledButton,]}
         disabled={saving} //so cant be pressed again while saving
         onPress={() => {
           // Prevent student creating empty unit & deadline check
@@ -85,12 +92,6 @@ export default function AddUnitScreen({ navigation, setUnits, darkMode, API_URL,
           });
       }}
       >
-
-        {error && (
-          <Text>
-            {error}
-          </Text>
-        )}
 
         <Text style={styles.createButtonText}>
           {saving ? 'Creating Unit...' : 'Create Unit'}

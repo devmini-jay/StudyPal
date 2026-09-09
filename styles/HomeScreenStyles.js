@@ -36,12 +36,24 @@ const styles = StyleSheet.create({
   },
 
   unitCard: {
-    backgroundColor: '#FFFFFF',
-    borderRadius: 14,
-    padding: 18,
-    marginBottom: 15,
-    elevation: 3,
+  backgroundColor: '#FFFFFF',
+  borderRadius: 16,
+  padding: 18,
+  marginBottom: 14,
+
+  borderWidth: 1,
+  borderColor: '#E8EAF0',
+
+  elevation: 2,
+
+  shadowColor: '#000',
+  shadowOffset: {
+    width: 0,
+    height: 2,
   },
+  shadowOpacity: 0.06,
+  shadowRadius: 5,
+},
 
   unitName: {
     fontSize: 20,
@@ -51,10 +63,11 @@ const styles = StyleSheet.create({
   },
 
   unitProgress: {
-    fontSize: 16,
-    fontWeight: '600',
-    marginBottom: 5,
-  },
+  fontSize: 15,
+  fontWeight: '600',
+  color: '#4F46E5',
+  marginBottom: 5,
+},
 
   taskCount: {
     fontSize: 14,
@@ -63,12 +76,26 @@ const styles = StyleSheet.create({
   },
 
   progressBar: {
-    height: 8,
-    backgroundColor: '#E2E5EA',
-    borderRadius: 10,
-    overflow: 'hidden',
-    marginBottom: 12,
-  },
+  height: 9,
+  backgroundColor: '#E8EAF0',
+  borderRadius: 10,
+  overflow: 'hidden',
+  marginTop: 4,
+  marginBottom: 12,
+},
+
+offlineBanner: {
+  backgroundColor: '#FFF7ED',
+  borderRadius: 10,
+  padding: 12,
+  marginBottom: 15,
+},
+
+offlineText: {
+  color: '#9A3412',
+  fontSize: 13,
+  fontWeight: '600',
+},
 
   progressFill: {
     height: '100%',

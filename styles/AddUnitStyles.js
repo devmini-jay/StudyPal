@@ -14,6 +14,16 @@ const styles = StyleSheet.create({
     marginBottom: 25,
   },
 
+  errorText: {
+  color: '#DC2626',
+  fontSize: 13,
+  marginBottom: 12,
+},
+
+disabledButton: {
+  opacity: 0.6,
+},
+
   label: {
     fontSize: 15,
     fontWeight: '600',
@@ -22,22 +32,23 @@ const styles = StyleSheet.create({
   },
 
   input: {
-    backgroundColor: '#FFFFFF',
-    borderWidth: 1,
-    borderColor: '#D5D8DE',
-    borderRadius: 10,
-    padding: 13,
-    fontSize: 15,
-    marginBottom: 20,
-  },
+  backgroundColor: '#FFFFFF',
+  borderWidth: 1,
+  borderColor: '#D5D8DE',
+  borderRadius: 12,
+  paddingHorizontal: 14,
+  paddingVertical: 14,
+  fontSize: 15,
+  marginBottom: 22,
+},
 
   createButton: {
-    backgroundColor: '#4F46E5',
-    padding: 15,
-    borderRadius: 12,
-    alignItems: 'center',
-    marginTop: 10,
-  },
+  backgroundColor: '#4F46E5',
+  paddingVertical: 16,
+  borderRadius: 12,
+  alignItems: 'center',
+  marginTop: 6,
+},
 
   createButtonText: {
     color: '#FFFFFF',

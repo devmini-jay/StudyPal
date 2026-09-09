@@ -78,7 +78,7 @@ export default function App() {
 
         const hasLocalData = await loadUnitsLocally();
 
-        if (!hasLocalData) {
+        if (hasLocalData) {
           setOfflineMode(true);
         } else {
           setError(error.message);

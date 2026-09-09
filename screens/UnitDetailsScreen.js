@@ -285,7 +285,7 @@ export default function UnitDetailsScreen({route, units, setUnits, darkMode, nav
 
       {editingUnit ? (
     <TextInput
-      style={styles.input}
+      style={[styles.input,darkMode && styles.darkInput,]}
       value={editedName}
       onChangeText={setEditedName}
     />
@@ -305,14 +305,14 @@ export default function UnitDetailsScreen({route, units, setUnits, darkMode, nav
 
                     
       {actionError && (
-        <Text>
+        <Text style={styles.errorText}>
           {actionError}
         </Text>
-      )} 
+      )}
 
       {editingUnit ? (
         <TextInput
-          style={styles.input}
+          style={[styles.input,darkMode && styles.darkInput,]}
           value={editedDeadline}
           onChangeText={setEditedDeadline}
         />
@@ -334,9 +334,10 @@ export default function UnitDetailsScreen({route, units, setUnits, darkMode, nav
         </TouchableOpacity>
       ) : (
         <TouchableOpacity
+          style={styles.editButton}
           onPress={() => setEditingUnit(true)}
         >
-          <Text>Edit Unit</Text>
+          <Text style={styles.editButtonText}>Edit Unit</Text>
         </TouchableOpacity>
 )}
 
@@ -390,7 +391,7 @@ export default function UnitDetailsScreen({route, units, setUnits, darkMode, nav
               <View style={styles.addTaskContainer}>
 
                 <TextInput
-                  style={styles.input}
+                  style={[styles.input,darkMode && styles.darkInput,]}
                   placeholder="Enter subtask"
                   value={newSubtask}
                   onChangeText={setNewSubtask}
@@ -432,7 +433,7 @@ export default function UnitDetailsScreen({route, units, setUnits, darkMode, nav
         <View style={styles.addTaskContainer}>
 
           <TextInput
-            style={styles.input}
+            style={[styles.input,darkMode && styles.darkInput,]}
             placeholder="Enter task name"
             value={newTask}
             onChangeText={setNewTask}
@@ -464,7 +465,7 @@ export default function UnitDetailsScreen({route, units, setUnits, darkMode, nav
 
       )}
 
-      <TouchableOpacity style={styles.addButton}
+      <TouchableOpacity style={styles.deleteButton}
         disabled={savingChanges}
         onPress={() =>
           Alert.alert(
@@ -484,7 +485,7 @@ export default function UnitDetailsScreen({route, units, setUnits, darkMode, nav
           )
         }
       >
-        <Text>
+        <Text style={styles.deleteButtonText}>
           {savingChanges ? 'Please wait...' : 'Delete Unit'}
         </Text>
       </TouchableOpacity>

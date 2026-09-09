@@ -12,7 +12,7 @@ const styles = StyleSheet.create({
   },
 
   minidarkContainer: {
-    backgroundColor: '#3b3b3f',
+    backgroundColor: '#27272A',
   },
 
   title: {
@@ -31,13 +31,18 @@ const styles = StyleSheet.create({
   },
 
   settingRow: {
-    backgroundColor: '#FFFFFF',
-    borderRadius: 14,
-    padding: 18,
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'space-between',
-  },
+  backgroundColor: '#FFFFFF',
+  borderRadius: 16,
+  padding: 18,
+  flexDirection: 'row',
+  alignItems: 'center',
+  justifyContent: 'space-between',
+
+  borderWidth: 1,
+  borderColor: '#E8EAF0',
+
+  elevation: 2,
+},
 
   settingTitle: {
     fontSize: 17,

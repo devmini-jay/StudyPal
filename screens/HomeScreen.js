@@ -66,9 +66,11 @@ const calculateProgress = unit => {
       <Text style={[styles.sectionTitle,darkMode && styles.darkText,]}>My Units</Text>
 
       {offlineMode && (
-        <Text style={darkMode && styles.darkText}>
-          Offline mode - showing saved data
-        </Text>
+        <View style={styles.offlineBanner}>
+          <Text style={styles.offlineText}>
+            Offline mode - showing saved data
+          </Text>
+        </View>
       )}
       
       {loading ? (

@@ -35,26 +35,30 @@ const styles = StyleSheet.create({
   },
 
   sectionTitle: {
-    fontSize: 22,
-    fontWeight: 'bold',
-    color: '#222222',
-    marginBottom: 12,
-  },
+  fontSize: 20,
+  fontWeight: 'bold',
+  color: '#222222',
+  marginBottom: 14,
+},
 
   taskCard: {
-    backgroundColor: '#FFFFFF',
-    borderRadius: 14,
-    padding: 16,
-    marginBottom: 12,
-    elevation: 2,
-  },
+  backgroundColor: '#FFFFFF',
+  borderRadius: 14,
+  padding: 16,
+  marginBottom: 12,
+
+  borderWidth: 1,
+  borderColor: '#E8EAF0',
+
+  elevation: 2,
+},
 
   taskTitle: {
-    fontSize: 18,
-    fontWeight: 'bold',
-    color: '#222222',
-    marginBottom: 10,
-  },
+  fontSize: 17,
+  fontWeight: 'bold',
+  color: '#222222',
+  marginBottom: 10,
+},
 
   subtaskRow: {
     flexDirection: 'row',
@@ -84,36 +88,87 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
   },
 
+  editButton: {
+  backgroundColor: '#EEF2FF',
+  paddingVertical: 10,
+  paddingHorizontal: 14,
+  borderRadius: 10,
+
+  alignSelf: 'flex-start',
+  marginBottom: 20,
+},
+
+editButtonText: {
+  color: '#4F46E5',
+  fontSize: 14,
+  fontWeight: '600',
+},
+
+deleteButton: {
+  backgroundColor: '#FEF2F2',
+  borderWidth: 1,
+  borderColor: '#FCA5A5',
+
+  paddingVertical: 13,
+  borderRadius: 10,
+  alignItems: 'center',
+
+  marginTop: 10,
+  marginBottom: 65,
+},
+
+deleteButtonText: {
+  color: '#DC2626',
+  fontSize: 15,
+  fontWeight: '600',
+},
+
   addTaskContainer: {
     marginTop: 10,
   },
 
-  input: {
-    backgroundColor: '#FFFFFF',
-    borderWidth: 1,
-    borderColor: '#D5D8DE',
-    borderRadius: 10,
-    padding: 12,
-    marginBottom: 10,
-    fontSize: 15,
-  },
+ input: {
+  backgroundColor: '#FFFFFF',
+  borderWidth: 1,
+  borderColor: '#D5D8DE',
+  borderRadius: 10,
 
-  saveButton: {
-    backgroundColor: '#4F46E5',
-    padding: 13,
-    borderRadius: 10,
-    alignItems: 'center',
-    marginBottom: 50,
-  },
+  paddingHorizontal: 12,
+  paddingVertical: 12,
 
-  addButton: {
-    backgroundColor: '#4F46E5',
-    padding: 15,
-    borderRadius: 12,
-    alignItems: 'center',
-    marginTop: 10,
-    marginBottom: 50,
-  },
+  fontSize: 15,
+  color: '#222222',
+
+  marginBottom: 12,
+},
+
+saveButton: {
+  backgroundColor: '#4F46E5',
+  paddingVertical: 13,
+  borderRadius: 10,
+  alignItems: 'center',
+  marginBottom: 15,
+},
+
+darkInput: {
+  backgroundColor: '#27272A',
+  borderColor: '#444444',
+  color: '#FFFFFF',
+},
+
+errorText: {
+  color: '#DC2626',
+  fontSize: 13,
+  marginBottom: 12,
+},
+
+addButton: {
+  backgroundColor: '#4F46E5',
+  paddingVertical: 13,
+  borderRadius: 10,
+  alignItems: 'center',
+  marginBottom: 15,
+},
 
   buttonText: {
     color: '#FFFFFF',
