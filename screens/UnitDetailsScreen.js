@@ -5,6 +5,7 @@ import {
   TouchableOpacity,
   TextInput,
   FlatList,
+  Alert
 } from 'react-native';
 
 import styles from '../styles/UnitDetailsScreenStyles';
@@ -222,6 +223,13 @@ export default function UnitDetailsScreen({route, units, setUnits, darkMode, nav
 
   //PUT function
   const updateUnit = () => {
+
+    //validation
+    if (editedName.trim() === '' || editedDeadline.trim() === '') {
+      setActionError('Unit name and target date cannot be empty.');
+      return;
+    }
+
 
     setActionError(null);
     setSavingChanges(true);
@@ -458,7 +466,23 @@ export default function UnitDetailsScreen({route, units, setUnits, darkMode, nav
 
       <TouchableOpacity style={styles.addButton}
         disabled={savingChanges}
-        onPress={deleteUnit}
+        onPress={() =>
+          Alert.alert(
+            'Delete Unit',
+            'Are you sure you want to delete this unit?',
+            [
+              {
+                text: 'Cancel',
+                style: 'cancel',
+              },
+              {
+                text: 'Delete',
+                style: 'destructive',
+                onPress: deleteUnit,
+              },
+            ]
+          )
+        }
       >
         <Text>
           {savingChanges ? 'Please wait...' : 'Delete Unit'}

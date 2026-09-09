@@ -33,8 +33,9 @@ export default function AddUnitScreen({ navigation, setUnits, darkMode, API_URL,
         style={styles.createButton}
         disabled={saving} //so cant be pressed again while saving
         onPress={() => {
-          // Prevent student creating empty unit
-          if (unitName.trim() === '') {
+          // Prevent student creating empty unit & deadline check
+          if (unitName.trim() === ''|| deadline.trim() === '') {
+            setError('Please enter a unit name and target date.');
             return;
           }
           setError(null); //before starting POST request, clear any old errors
