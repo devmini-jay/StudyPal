@@ -48,7 +48,14 @@ export default function AddUnitScreen({ navigation, setUnits, darkMode, API_URL,
             },
             body: JSON.stringify(newUnit), //converts javascript object into JSON so can be sent to API
           })
-          .then(response => response.json())
+          .then(response => {
+            //to treat http erros (like 404) as javascript errors
+            if (!response.ok) {
+              throw new Error('Failed to create unit');
+            }
+
+            return response.json();
+          })
           .then(createdUnit => {
 
             setUnits(currentUnits => {
